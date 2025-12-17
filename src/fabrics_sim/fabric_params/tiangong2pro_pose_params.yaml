@@ -61,41 +61,37 @@ fabric_params:
       constant_accel_geom: 5.
       damping_gain: 0. #25. #30.
       collision_sphere_frames: 
-          ["iiwa7_link_2", "iiwa7_link_2_sphere2","iiwa7_link_2_sphere3",
-           "iiwa7_link_4", "iiwa7_link_4_sphere2","iiwa7_link_4_sphere3",
-           "iiwa7_link_6_sphere2",
-           "iiwa7_link_7", "allegro_mount", "palm_link_sphere2",
+      # 放置碰撞球体的连杆名称列表, 与下面的半径列表一一对应
+      # 这些是右臂中真正有碰撞体积的连杆
+          ["body_yaw_link",
+           "shoulder_yaw_r_link", 
+           "elbow_yaw_r_link",
            
-           "index_link_1", "index_link_1_sphere2", "index_link_2",
-           "index_link_3", "index_link_3_sphere2",
-           "middle_link_1", "middle_link_1_sphere2", "middle_link_2",
-           "middle_link_3", "middle_link_3_sphere2",
-           "ring_link_1", "ring_link_1_sphere2", "ring_link_2",
-           "ring_link_3", "ring_link_3_sphere2",
-           "thumb_link_1", "thumb_link_2", "thumb_link_2_sphere2",
-           "thumb_link_3", "thumb_link_3_sphere2", "thumb_link_3_sphere3"]
-      collision_sphere_radii: [0.12, 0.1, 0.1,
-                               0.125, 0.1, 0.1,
-                               0.1,
-                               0.075, 0.05, 0.075,
-                               0.02, 0.02, 0.02, 0.02, 0.02,
-                               0.02, 0.02, 0.02, 0.02, 0.02,
-                               0.02, 0.02, 0.02, 0.02, 0.02,
-                               0.02, 0.02, 0.02, 0.02, 0.02, 0.02]
+           "base_link_r",
+           "A01_R", "A02_R", "B01_R", "B02_R",
+           "C01_R", "C02_R", "D01_R", "D02_R"]
+
+      collision_sphere_radii: [0.4,
+                               0.12,
+                               0.125,
+                               
+                               0.075,
+                               0.02, 0.02, 0.02, 0.02,
+                               0.02, 0.02, 0.02, 0.02]
+
       collision_sphere_pairs: []
-      collision_link_prefix_pairs: [["palm_link", "iiwa7_link_2"],
-                                    ["index_link_1", "iiwa7_link_2"],
-                                    ["index_link_2", "iiwa7_link_2"],
-                                    ["index_link_3", "iiwa7_link_2"],
-                                    ["middle_link_1", "iiwa7_link_2"],
-                                    ["middle_link_2", "iiwa7_link_2"],
-                                    ["middle_link_3", "iiwa7_link_2"],
-                                    ["ring_link_1", "iiwa7_link_2"],
-                                    ["ring_link_2", "iiwa7_link_2"],
-                                    ["ring_link_3", "iiwa7_link_2"],
-                                    ["thumb_link_1", "iiwa7_link_2"],
-                                    ["thumb_link_2", "iiwa7_link_2"],
-                                    ["thumb_link_3", "iiwa7_link_2"]]
+       # 使用前缀匹配定义碰撞对
+      collision_link_prefix_pairs: [["body_yaw_link", "shoulder_yaw_r_link"],
+                                    ["body_yaw_link", "elbow_yaw_r_link"],
+                                    ["base_link_r", "body_yaw_link"],
+                                    ["A01_R", "body_yaw_link"],
+                                    ["A02_R", "body_yaw_link"],
+                                    ["B01_R", "body_yaw_link"],
+                                    ["B02_R", "body_yaw_link"],
+                                    ["C01_R", "body_yaw_link"],
+                                    ["C02_R", "body_yaw_link"],
+                                    ["D01_R", "body_yaw_link"],
+                                    ["D02_R", "body_yaw_link"],]
     cspace_damping:
       gain: 10.
     speed_control:
@@ -105,12 +101,12 @@ fabric_params:
     joint_limits:
       active: True
       acceleration: [7.5, 7.5, 10., 10., 10., 20., 20.,
-                     22.5, 22.5, 22.5, 22.5,
-                     22.5, 22.5, 22.5, 22.5,
-                     22.5, 22.5, 22.5, 22.5,
-                     22.5, 22.5, 22.5, 22.5]
+                     15., 15., 15.,
+                     15., 15., 15.,
+                     15., 15., 15.,
+                     15., 15., 15.]
       jerk: [3750., 3750., 5000., 5000., 5000., 10000., 10000.,
-             2250., 2250., 2250., 2250.,
-             2250., 2250., 2250., 2250.,
-             2250., 2250., 2250., 2250.,
-             2250., 2250., 2250., 2250.]
+             2000., 2000., 2000.,
+             2000., 2000., 2000.,
+             2000., 2000., 2000.,
+             2000., 2000., 2000.]

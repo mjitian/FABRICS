@@ -41,7 +41,7 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="package://tiangong2pro/meshes/body_yaw_link.STL" />
+        <mesh filename="meshes/body_yaw_link.STL" />
       </geometry>
       <material name="">
         <color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
@@ -54,700 +54,12 @@
     </collision>
   </link>
 
-  <joint name="body_yaw_joint" type="revolute">
+  <joint name="body_yaw_joint" type="fixed">
     <origin xyz="0 0 1" rpy="0 0 0" />
     <parent link="torso_base_link" />
     <child link="body_yaw_link" />
     <axis xyz="0 0 1" />
     <limit lower="-2.9670597283903604" upper="3.141592653589793" effort="91.0" velocity="9.215338450530059" />
-  </joint>
-  
-  <link name="head_yaw_link">
-    <inertial>
-      <origin xyz="-0.000202 0.000454 0.007248" rpy="0 0 0" />
-      <mass value="0.088397" />
-      <inertia ixx="9.5e-05" ixy="-1e-06" ixz="-3e-06" iyy="7.6e-05" iyz="-3e-06" izz="0.000106" />
-    </inertial>
-    <visual>
-      <origin xyz="0 0 0" rpy="0 0 0" />
-      <geometry>
-        <mesh filename="package://tiangong2pro/meshes/head_yaw_link.STL" />
-      </geometry>
-      <material name="">
-        <color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
-      </material>
-    </visual>
-    <!-- <collision>
-      <origin xyz="0 0 0" rpy="0 0 0" />
-      <geometry>
-        <box size="0.0300 0.0300 0.0337" /></geometry>
-    </collision> -->
-  </link>
-  <joint name="head_yaw_joint" type="revolute">
-    <origin xyz="-0.002 0 0.56508" rpy="0 0 0" />
-    <parent link="body_yaw_link" />
-    <child link="head_yaw_link" />
-    <axis xyz="0 0 1" />
-    <limit lower="-1.5707963267948966" upper="1.5707963267948966" effort="6.3" velocity="7.5398223686155035" />
-  </joint>
-  <link name="head_pitch_link">
-    <inertial>
-      <origin xyz="-0.000274 0.004118 2.3e-05" rpy="0 0 0" />
-      <mass value="0.23046" />
-      <inertia ixx="9.2e-05" ixy="1e-06" ixz="-1e-06" iyy="5.4e-05" iyz="0.0" izz="9.5e-05" />
-    </inertial>
-    <visual>
-      <origin xyz="0 0 0" rpy="0 0 0" />
-      <geometry>
-        <mesh filename="package://tiangong2pro/meshes/head_pitch_link.STL" />
-      </geometry>
-      <material name="">
-        <color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
-      </material>
-    </visual>
-    <!-- <collision>
-      <origin xyz="0 0 0" rpy="0 0 0" />
-      <geometry>
-        <box size="0.06 0.06 0.12" />
-      </geometry>
-    </collision> -->
-  </link>
-  <joint name="head_pitch_joint" type="revolute">
-    <origin xyz="0.01455 0 0.0304" rpy="0 0.2618 0" />
-    <parent link="head_yaw_link" />
-    <child link="head_pitch_link" />
-    <axis xyz="0 1 0" />
-    <limit lower="-0.4363323129985824" upper="0.4363323129985824" effort="6.3" velocity="7.5398223686155035" />
-  </joint>
-  <link name="head_roll_link">
-    <inertial>
-      <origin xyz="0.022467 0.001208 0.053952" rpy="0 0 0" />
-      <mass value="0.844627" />
-      <inertia ixx="0.00235" ixy="3.8e-05" ixz="0.000436" iyy="0.003365" iyz="6e-06" izz="0.002875" />
-    </inertial>
-    <visual>
-      <origin xyz="0 0 0" rpy="0 0 0" />
-      <geometry>
-        <mesh filename="package://tiangong2pro/meshes/head_roll_link.STL" />
-      </geometry>
-      <material name="">
-        <color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
-      </material>
-    </visual>
-    <collision>
-      <origin xyz="0 0 0.05" rpy="0 0 0" />
-      <geometry>
-        <box size="0.15 0.15 0.2" /></geometry>
-    </collision>
-  </link>
-  <joint name="head_roll_joint" type="revolute">
-    <origin xyz="0 0 0" rpy="0 0 0" />
-    <parent link="head_pitch_link" />
-    <child link="head_roll_link" />
-    <axis xyz="1 0 0" />
-    <limit lower="-0.4537856055185257" upper="0.4537856055185257" effort="6.3" velocity="7.5398223686155035" />
-  </joint>
-  <link name="camera_head_link">
-    <inertial>
-      <origin xyz="0.010986 -0.000307 -0.016475" rpy="0 0 0" />
-      <mass value="0.1" />
-      <inertia ixx="1.6e-05" ixy="0.0" ixz="0.0" iyy="8e-05" iyz="0.0" izz="7.7e-05" />
-    </inertial>
-    <visual>
-      <origin xyz="0 0 0" rpy="0 0 0" />
-      <geometry>
-        <mesh filename="package://tiangong2pro/meshes/camera_head_link.STL" />
-      </geometry>
-      <material name="">
-        <color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
-      </material>
-    </visual>
-    <!-- <collision>
-      <origin xyz="0 0 0" rpy="0 0 0" />
-      <geometry>
-        <box size="0.05 0.05 0.06" />
-      </geometry>
-    </collision> -->
-  </link>
-  <joint name="camera_head_joint" type="fixed">
-    <origin xyz="0.075191 0.010935 0.074436" rpy="-1.8326 0 -1.5708" />
-    <parent link="head_roll_link" />
-    <child link="camera_head_link" />
-    <axis xyz="0 0 0" />
-  </joint>
-
-
-  <link name="shoulder_pitch_l_link">
-    <inertial>
-      <origin xyz="0.007494 0.064184 -2e-05" rpy="0 0 0" />
-      <mass value="1.032698" />
-      <inertia ixx="0.001025" ixy="-2.7e-05" ixz="-1e-06" iyy="0.001078" iyz="0.0" izz="0.001247" />
-    </inertial>
-    <visual>
-      <origin xyz="0 0 0" rpy="0 0 0" />
-      <geometry>
-        <mesh filename="package://tiangong2pro/meshes/shoulder_pitch_l_link.STL" />
-      </geometry>
-      <material name="">
-        <color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
-      </material>
-    </visual>
-    <!-- <collision>
-      <origin xyz="0 0 0" rpy="0 0 0" />
-      <geometry>
-        <box size="0.0340 0.0340 0.0680" /></geometry>
-    </collision> -->
-  </link>
-  <joint name="shoulder_pitch_l_joint" type="revolute">
-    <origin xyz="0 0.1444 0.37712" rpy="0.087266 0 0" />
-    <parent link="body_yaw_link" />
-    <child link="shoulder_pitch_l_link" />
-    <axis xyz="0 1 0" />
-    <limit lower="-2.9670597283903604" upper="2.9670597283903604" effort="91.0" velocity="9.215338450530059" />
-  </joint>
-  <link name="shoulder_roll_l_link">
-    <inertial>
-      <origin xyz="0.002389 0.002259 -0.048236" rpy="0 0 0" />
-      <mass value="0.440997" />
-      <inertia ixx="0.001001" ixy="-4e-06" ixz="-2.5e-05" iyy="0.001313" iyz="-1.4e-05" izz="0.000911" />
-    </inertial>
-    <visual>
-      <origin xyz="0 0 0" rpy="0 0 0" />
-      <geometry>
-        <mesh filename="package://tiangong2pro/meshes/shoulder_roll_l_link.STL" />
-      </geometry>
-      <material name="">
-        <color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
-      </material>
-    </visual>
-    <!-- <collision>
-      <origin xyz="0 0 0" rpy="0 0 0" />
-      <geometry>
-        <box size="0.0512 0.0512 0.1025" /></geometry>
-    </collision> -->
-  </link>
-  <joint name="shoulder_roll_l_joint" type="revolute">
-    <origin xyz="0 0.068 0" rpy="0 0 0" />
-    <parent link="shoulder_pitch_l_link" />
-    <child link="shoulder_roll_l_link" />
-    <axis xyz="1 0 0" />
-    <limit lower="-0.2618" upper="2.618" effort="95.0" velocity="3.979350694547071" />
-  </joint>
-  <link name="shoulder_yaw_l_link">
-    <inertial>
-      <origin xyz="0.008319 0.002686 -0.112525" rpy="0 0 0" />
-      <mass value="1.365033" />
-      <inertia ixx="0.009637" ixy="-5.7e-05" ixz="0.00095" iyy="0.0096" iyz="0.000339" izz="0.001331" />
-    </inertial>
-    <visual>
-      <origin xyz="0 0 0" rpy="0 0 0" />
-      <geometry>
-        <mesh filename="package://tiangong2pro/meshes/shoulder_yaw_l_link.STL" />
-      </geometry>
-      <material name="">
-        <color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
-      </material>
-    </visual>
-    <collision>
-      <origin xyz="0 0 0" rpy="0 0 0" />
-      <geometry>
-        <box size="0.0993 0.0993 0.1985" /></geometry>
-    </collision>
-  </link>
-  <joint name="shoulder_yaw_l_joint" type="revolute">
-    <origin xyz="0 0 -0.1025" rpy="0 0 0" />
-    <parent link="shoulder_roll_l_link" />
-    <child link="shoulder_yaw_l_link" />
-    <axis xyz="0 0 1" />
-    <limit lower="-2.9670597283903604" upper="2.9670597283903604" effort="35.0" velocity="5.235987755982989" />
-  </joint>
-  <link name="elbow_pitch_l_link">
-    <inertial>
-      <origin xyz="-0.014694 -7.2e-05 -0.026081" rpy="0 0 0" />
-      <mass value="0.246311" />
-      <inertia ixx="0.000381" ixy="1e-06" ixz="-1.2e-05" iyy="0.000222" iyz="2e-06" izz="0.000401" />
-    </inertial>
-    <visual>
-      <origin xyz="0 0 0" rpy="0 0 0" />
-      <geometry>
-        <mesh filename="package://tiangong2pro/meshes/elbow_pitch_l_link.STL" />
-      </geometry>
-      <material name="">
-        <color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
-      </material>
-    </visual>
-    <!-- <collision>
-      <origin xyz="0 0 0" rpy="0 0 0" />
-      <geometry>
-        <box size="0.0300 0.0300 0.0579" /></geometry>
-    </collision> -->
-  </link>
-  <joint name="elbow_pitch_l_joint" type="revolute">
-    <origin xyz="0.02 0 -0.1975" rpy="0 0 0" />
-    <parent link="shoulder_yaw_l_link" />
-    <child link="elbow_pitch_l_link" />
-    <axis xyz="0 1 0" />
-    <limit lower="-2.6179938779914944" upper="0.2617993877991494" effort="35.0" velocity="5.235987755982989" />
-  </joint>
-  <link name="elbow_yaw_l_link">
-    <inertial>
-      <origin xyz="0.000158 0.001503 -0.069535" rpy="0 0 0" />
-      <mass value="0.986828" />
-      <inertia ixx="0.003108" ixy="-1e-06" ixz="8e-06" iyy="0.003035" iyz="8.9e-05" izz="0.00058" />
-    </inertial>
-    <visual>
-      <origin xyz="0 0 0" rpy="0 0 0" />
-      <geometry>
-        <mesh filename="package://tiangong2pro/meshes/elbow_yaw_l_link.STL" />
-      </geometry>
-      <material name="">
-        <color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
-      </material>
-    </visual>
-    <collision>
-      <origin xyz="0 0 0" rpy="0 0 0" />
-      <geometry>
-        <box size="0.0944 0.0944 0.1887" /></geometry>
-    </collision>
-  </link>
-  <joint name="elbow_yaw_l_joint" type="revolute">
-    <origin xyz="-0.02 0 -0.0543" rpy="0 0 0" />
-    <parent link="elbow_pitch_l_link" />
-    <child link="elbow_yaw_l_link" />
-    <axis xyz="0 0 1" />
-    <limit lower="-2.9670597283903604" upper="2.9670597283903604" effort="24.0" velocity="10.471975511965978" />
-  </joint>
-  <link name="wrist_pitch_l_link">
-    <inertial>
-      <origin xyz="0.005362 0.00064 -0.018812" rpy="0 0 0" />
-      <mass value="0.262007" />
-      <inertia ixx="7.1e-05" ixy="-3e-06" ixz="-2e-06" iyy="0.000112" iyz="-3e-06" izz="0.000111" />
-    </inertial>
-    <visual>
-      <origin xyz="0 0 0" rpy="0 0 0" />
-      <geometry>
-        <mesh filename="package://tiangong2pro/meshes/wrist_pitch_l_link.STL" />
-      </geometry>
-      <material name="">
-        <color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
-      </material>
-    </visual>
-    <!-- <collision>
-      <origin xyz="0 0 0" rpy="0 0 0" />
-      <geometry>
-        <box size="0.0300 0.0300 0.0200" /></geometry>
-    </collision> -->
-  </link>
-  <joint name="wrist_pitch_l_joint" type="revolute">
-    <origin xyz="0 0 -0.1887" rpy="0 0 0" />
-    <parent link="elbow_yaw_l_link" />
-    <child link="wrist_pitch_l_link" />
-    <axis xyz="0 1 0" />
-    <limit lower="-0.7854" upper="1.0472" effort="6.3" velocity="7.5398223686155035" />
-  </joint>
-  <link name="wrist_roll_l_link">
-    <inertial>
-      <origin xyz="0.000801 8.4e-05 -0.029302" rpy="0 0 0" />
-      <mass value="0.131751" />
-      <inertia ixx="6.9e-05" ixy="0.0" ixz="-1e-06" iyy="0.000116" iyz="0.0" izz="0.00011" />
-    </inertial>
-    <visual>
-      <origin xyz="0 0 0" rpy="0 0 0" />
-      <geometry>
-        <mesh filename="package://tiangong2pro/meshes/wrist_roll_l_link.STL" />
-      </geometry>
-      <material name="">
-        <color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
-      </material>
-    </visual>
-    <!-- <collision>
-      <origin xyz="0 0 0" rpy="0 0 0" />
-      <geometry>
-        <box size="0.0300 0.0300 0.0500" /></geometry>
-    </collision> -->
-  </link>
-  <joint name="wrist_roll_l_joint" type="revolute">
-    <origin xyz="0 0 -0.02" rpy="0 0 0" />
-    <parent link="wrist_pitch_l_link" />
-    <child link="wrist_roll_l_link" />
-    <axis xyz="1 0 0" />
-    <limit lower="-1.6581" upper="1.309" effort="6.3" velocity="7.5398223686155035" />
-  </joint>
-
-  <joint name="left_hand_joint" type="fixed">
-    <origin xyz="0 0 -0.05" rpy="0 0 0" />
-    <parent link="wrist_roll_l_link" />
-    <child link="base_link_l" />
-  </joint>
-
-  <link name="base_link_l">
-    <inertial>
-      <origin xyz="-0.010691 -0.00094639 -0.061047" rpy="0 0 0" />
-      <mass value="0.13118" />
-      <inertia ixx="0.00013242" ixy="5.0049E-07" ixz="5.0215E-06" iyy="7.8772E-05" iyz="-3.6858E-06" izz="9.9902E-05" />
-    </inertial>
-    <visual>
-      <origin xyz="0 0 0" rpy="0 0 0" />
-      <geometry>
-        <mesh filename="package://tiangong2pro/meshes/base_link.STL" />
-      </geometry>
-      <material name="">
-        <color rgba="0.69804 0.69804 0.69804 1" />
-      </material>
-    </visual>
-    <collision>
-      <origin xyz="0 0 0" rpy="0 0 0" />
-      <geometry>
-        <box size="0.0674 0.0674 0.1348" /></geometry>
-    </collision>
-  </link>
-  <link name="A00">
-    <inertial>
-      <origin xyz="-2.2933E-14 -2.3492E-14 -0.0067133" rpy="0 0 0" />
-      <mass value="0.00085829" />
-      <inertia ixx="3.0126E-08" ixy="-6.0604E-10" ixz="-2.6505E-23" iyy="2.8681E-08" iyz="-5.2352E-23" izz="1.1137E-08" />
-    </inertial>
-    <visual>
-      <origin xyz="0 0 0" rpy="0 0 0" />
-      <geometry>
-        <mesh filename="package://tiangong2pro/meshes/A00.STL" />
-      </geometry>
-      <material name="">
-        <color rgba="0.69804 0.69804 0.69804 1" />
-      </material>
-    </visual>
-    <!-- <collision>
-      <origin xyz="0 0 0" rpy="0 0 0" />
-      <geometry>
-        <box size="0.015 0.015 0.0085" /></geometry>
-    </collision> -->
-  </link>
-  <joint name="jointA00" type="revolute">
-    <origin xyz="0.028133 0.024512 -0.05" rpy="0 0 0" />
-    <parent link="base_link_l" />
-    <child link="A00" />
-    <axis xyz="0 0 1" />
-    <limit lower="-0.6" upper="0.6" effort="0.05" velocity="7.5398223686155035" />
-  </joint>
-  
-  <link name="A01">
-    <inertial>
-      <origin xyz="0.0254296299322205 0.00922467356676025 0.00356332719595435" rpy="0 0 0" />
-      <mass value="0.0114725777985131" />
-      <inertia ixx="9.50108253229648E-07" ixy="5.20689468748426E-07" ixz="1.26484488716814E-07" iyy="2.1911624572317E-06" iyz="4.60390971094442E-08" izz="2.42246081564651E-06" />
-    </inertial>
-    <visual>
-      <origin xyz="0 0 0" rpy="0 0 0" />
-      <geometry>
-        <mesh filename="package://tiangong2pro/meshes/A01.STL" />
-      </geometry>
-      <material name="">
-        <color rgba="0.698039215686274 0.698039215686274 0.698039215686274 1" />
-      </material>
-    </visual>
-    <!-- <collision>
-      <origin xyz="0 0 0" rpy="0 0 0" />
-      <geometry>
-        <box size="0.0100 0.0100 0.0520" /></geometry>
-    </collision> -->
-  </link>
-  
-  <joint name="jointA01" type="revolute">
-    <origin xyz="0 0 -0.0085" rpy="0 0 0" />
-    <parent link="A00" />
-    <child link="A01" />
-    <axis xyz="-0.34202 0.93969 0" />
-    <limit lower="0.0" upper="1.0" effort="0.05" velocity="7.5398223686155035" />
-  </joint>
-  
-  <link name="A02">
-    <inertial>
-      <origin xyz="0.017667 0.0064303 0.0017428" rpy="0 0 0" />
-      <mass value="0.0067071" />
-      <inertia ixx="3.811E-07" ixy="1.8888E-07" ixz="-8.9907E-08" iyy="8.3132E-07" iyz="-3.2721E-08" izz="9.0747E-07" />
-    </inertial>
-    <visual>
-      <origin xyz="0 0 0" rpy="0 0 0" />
-      <geometry>
-        <mesh filename="package://tiangong2pro/meshes/A02.STL" />
-      </geometry>
-      <material name="">
-        <color rgba="0.69804 0.69804 0.69804 1" />
-      </material>
-    </visual>
-    <collision>
-      <origin xyz="0 0 0" rpy="0 0 0" />
-      <geometry>
-        <box size="0.05 0.025 0.025" />
-      </geometry>
-    </collision>
-  </link>
-  
-  <joint name="jointA02" type="revolute">
-    <origin xyz="0.048864 0.017785 0" rpy="0 0 0" />
-    <parent link="A01" />
-    <child link="A02" />
-    <axis xyz="0.34202 -0.93969 0" />
-    <limit lower="-1.0" upper="0.0" effort="0.05" velocity="7.5398223686155035" />
-  </joint>
-  
-  <link name="B00">
-    <inertial>
-      <origin xyz="0.0067133 -2.8044E-14 5.268E-14" rpy="0 0 0" />
-      <mass value="0.00085829" />
-      <inertia ixx="1.1137E-08" ixy="-2.1263E-23" ixz="-5.5395E-23" iyy="2.8461E-08" iyz="-8.3334E-24" izz="3.0346E-08" />
-    </inertial>
-    <visual>
-      <origin xyz="0 0 0" rpy="0 0 0" />
-      <geometry>
-        <mesh filename="package://tiangong2pro/meshes/B00.STL" />
-      </geometry>
-      <material name="">
-        <color rgba="0.69804 0.69804 0.69804 1" />
-      </material>
-    </visual>
-    <!-- <collision>
-      <origin xyz="0 0 0" rpy="0 0 0" />
-      <geometry>
-        <box size="0.0300 0.0300 0.0085" /></geometry>
-    </collision> -->
-  </link>
-  <joint name="jointB00" type="revolute">
-    <origin xyz="-0.019945 0.024512 -0.131" rpy="0 0 0" />
-    <parent link="base_link_l" />
-    <child link="B00" />
-    <axis xyz="-1 0 0" />
-    <limit lower="-0.6" upper="0.6" effort="0.05" velocity="7.5398223686155035" />
-  </joint>
-  <link name="B01">
-    <inertial>
-      <origin xyz="-0.0035633 2.9085E-05 -0.027051" rpy="0 0 0" />
-      <mass value="0.011473" />
-      <inertia ixx="2.4225E-06" ixy="2.2581E-12" ixz="1.346E-07" iyy="2.3807E-06" iyz="3.45E-12" izz="7.6059E-07" />
-    </inertial>
-    <visual>
-      <origin xyz="0 0 0" rpy="0 0 0" />
-      <geometry>
-        <mesh filename="package://tiangong2pro/meshes/B01.STL" />
-      </geometry>
-      <material name="">
-        <color rgba="0.69804 0.69804 0.69804 1" />
-      </material>
-    </visual>
-    <collision>
-      <origin xyz="0 0 0" rpy="0 0 0" />
-      <geometry>
-        <box size="0.02500 0.02500 0.05" /></geometry>
-    </collision>
-  </link>
-  <joint name="jointB01" type="revolute">
-    <origin xyz="0.0085 0 0" rpy="0 0 0" />
-    <parent link="B00" />
-    <child link="B01" />
-    <axis xyz="0 -1 0" />
-    <limit lower="0.0" upper="1.0" effort="0.05" velocity="7.5398223686155035" />
-  </joint>
-  <link name="B02">
-    <inertial>
-      <origin xyz="-0.0017428 4.697E-08 -0.018801" rpy="0 0 0" />
-      <mass value="0.006707" />
-      <inertia ixx="9.0747E-07" ixy="2.3445E-12" ixz="-9.5675E-08" iyy="9.0007E-07" iyz="-5.933E-12" izz="3.1235E-07" />
-    </inertial>
-    <visual>
-      <origin xyz="0 0 0" rpy="0 0 0" />
-      <geometry>
-        <mesh filename="package://tiangong2pro/meshes/B02.STL" />
-      </geometry>
-      <material name="">
-        <color rgba="0.69804 0.69804 0.69804 1" />
-      </material>
-    </visual>
-    <collision>
-      <origin xyz="0 0 0" rpy="0 0 0" />
-      <geometry>
-        <box size="0.025 0.025 0.045" />
-      </geometry>
-    </collision>
-  </link>
-  <joint name="jointB02" type="revolute">
-    <origin xyz="0 0 -0.052" rpy="0 0 0" />
-    <parent link="B01" />
-    <child link="B02" />
-    <axis xyz="0 1 0" />
-    <limit lower="-1.0" upper="0.0" effort="0.05" velocity="7.5398223686155035" />
-  </joint>
-  <link name="C00">
-    <inertial>
-      <origin xyz="0.0067133 4.8572E-17 -1.7486E-15" rpy="0 0 0" />
-      <mass value="0.00085829" />
-      <inertia ixx="1.1137E-08" ixy="-1.777E-23" ixz="-7.2444E-23" iyy="2.8467E-08" iyz="-1.1002E-10" izz="3.034E-08" />
-    </inertial>
-    <visual>
-      <origin xyz="0 0 0" rpy="0 0 0" />
-      <geometry>
-        <mesh filename="package://tiangong2pro/meshes/C00.STL" />
-      </geometry>
-      <material name="">
-        <color rgba="0.69804 0.69804 0.69804 1" />
-      </material>
-    </visual>
-    <!-- <collision>
-      <origin xyz="0 0 0" rpy="0 0 0" />
-      <geometry>
-        <box size="0.0300 0.0300 0.0085" /></geometry>
-    </collision> -->
-  </link>
-  <joint name="jointC00" type="revolute">
-    <origin xyz="-0.019945 -0.0082885 -0.12495" rpy="0 0 0" />
-    <parent link="base_link_l" />
-    <child link="C00" />
-    <axis xyz="-1 0 0" />
-    <limit lower="-0.6" upper="0.6" effort="0.05" velocity="7.5398223686155035" />
-  </joint>
-  <link name="C01">
-    <inertial>
-      <origin xyz="-0.0035633 -0.001552 -0.027007" rpy="0 0 0" />
-      <mass value="0.011473" />
-      <inertia ixx="2.4225E-06" ixy="7.8692E-09" ixz="1.3437E-07" iyy="2.3751E-06" iyz="9.4529E-08" izz="7.6613E-07" />
-    </inertial>
-    <visual>
-      <origin xyz="0 0 0" rpy="0 0 0" />
-      <geometry>
-        <mesh filename="package://tiangong2pro/meshes/C01.STL" />
-      </geometry>
-      <material name="">
-        <color rgba="0.69804 0.69804 0.69804 1" />
-      </material>
-    </visual>
-    <collision>
-      <origin xyz="0 0 0" rpy="0 0 0" />
-      <geometry>
-        <box size="0.0250 0.0250 0.0500" /></geometry>
-    </collision>
-  </link>
-  <joint name="jointC01" type="revolute">
-    <origin xyz="0.0085 0 0" rpy="0 0 0" />
-    <parent link="C00" />
-    <child link="C01" />
-    <axis xyz="0 -0.99829 0.058445" />
-    <limit lower="0.0" upper="1.0" effort="0.05" velocity="7.5398223686155035" />  
-  </joint>
-  <link name="C02">
-    <inertial>
-      <origin xyz="-0.0017427 -0.0010988 -0.018769" rpy="0 0 0" />
-      <mass value="0.006707" />
-      <inertia ixx="9.0747E-07" ixy="-5.5894E-09" ixz="-9.5511E-08" iyy="8.9806E-07" iyz="3.4285E-08" izz="3.1436E-07" />
-    </inertial>
-    <visual>
-      <origin xyz="0 0 0" rpy="0 0 0" />
-      <geometry>
-        <mesh filename="package://tiangong2pro/meshes/C02.STL" />
-      </geometry>
-      <material name="">
-        <color rgba="0.69804 0.69804 0.69804 1" />
-      </material>
-    </visual>
-    <collision>
-      <origin xyz="0 0 0" rpy="0 0 0" />
-      <geometry>
-        <box size="0.025 0.025 0.045" />
-      </geometry>
-    </collision>
-  </link>
-  <joint name="jointC02" type="revolute">
-    <origin xyz="0 -0.0030391 -0.051911" rpy="0 0 0" />
-    <parent link="C01" />
-    <child link="C02" />
-    <axis xyz="0 0.99829 -0.058445" />
-    <limit lower="-1.0" upper="0.0" effort="0.05" velocity="7.5398223686155035" />  
-  </joint>
-  <link name="D00">
-    <inertial>
-      <origin xyz="0.0067133 1.249E-16 3.0531E-16" rpy="0 0 0" />
-      <mass value="0.00085829" />
-      <inertia ixx="1.1137E-08" ixy="-3.3905E-23" ixz="-8.5298E-23" iyy="2.8514E-08" iyz="-3.1353E-10" izz="3.0293E-08" />
-    </inertial>
-    <visual>
-      <origin xyz="0 0 0" rpy="0 0 0" />
-      <geometry>
-        <mesh filename="package://tiangong2pro/meshes/D00.STL" />
-      </geometry>
-      <material name="">
-        <color rgba="0.69804 0.69804 0.69804 1" />
-      </material>
-    </visual>
-    <!-- <collision>
-      <origin xyz="0 0 0" rpy="0 0 0" />
-      <geometry>
-        <box size="0.0300 0.0300 0.0085" /></geometry>
-    </collision> -->
-  </link>
-  <joint name="jointD00" type="revolute">
-    <origin xyz="-0.019945 -0.040488 -0.11394" rpy="0 0 0" />
-    <parent link="base_link_l" />
-    <child link="D00" />
-    <axis xyz="-1 0 0" />
-    <limit lower="-0.6" upper="0.6" effort="0.05" velocity="7.5398223686155035" />  
-  </joint>
-
-  <link name="D01">
-    <inertial>
-      <origin xyz="-0.0035633 -0.0045345 -0.026668" rpy="0 0 0" />
-      <mass value="0.011473" />
-      <inertia ixx="2.4225E-06" ixy="2.2708E-08" ixz="1.3267E-07" iyy="2.3346E-06" iyz="2.6938E-07" izz="8.0669E-07" />
-    </inertial>
-    <visual>
-      <origin xyz="0 0 0" rpy="0 0 0" />
-      <geometry>
-        <mesh filename="package://tiangong2pro/meshes/D01.STL" />
-      </geometry>
-      <material name="">
-        <color rgba="0.69804 0.69804 0.69804 1" />
-      </material>
-    </visual>
-    <collision>
-      <origin xyz="0 0 0" rpy="0 0 0" />
-      <geometry>
-        <box size="0.0250 0.0250 0.0500" /></geometry>
-    </collision>
-  </link>
-
-  <joint name="jointD01" type="revolute">
-    <origin xyz="0.0085 0 0" rpy="0 0 0" />
-    <parent link="D00" />
-    <child link="D01" />
-    <axis xyz="0 -0.98567 0.16869" />
-    <limit lower="0.0" upper="1.0" effort="0.05" velocity="7.5398223686155035" />
-  </joint>
-
-  <link name="D02">
-    <inertial>
-      <origin xyz="-0.0017428 -0.0031715 -0.018532" rpy="0 0 0" />
-      <mass value="0.006707" />
-      <inertia ixx="9.0747E-07" ixy="-1.6137E-08" ixz="-9.4304E-08" iyy="8.8335E-07" iyz="9.7715E-08" izz="3.2907E-07" />
-    </inertial>
-    <visual>
-      <origin xyz="0 0 0" rpy="0 0 0" />
-      <geometry>
-        <mesh filename="package://tiangong2pro/meshes/D02.STL" />
-      </geometry>
-      <material name="">
-        <color rgba="0.69804 0.69804 0.69804 1" />
-      </material>
-    </visual>
-    <collision>
-      <origin xyz="0 0 0" rpy="0 0 0" />
-      <geometry>
-        <box size="0.025 0.025 0.045" />
-      </geometry>
-    </collision>
-  </link>
-  <joint name="jointD02" type="revolute">
-    <origin xyz="0 -0.0087718 -0.051255" rpy="0 0 0" />
-    <parent link="D01" />
-    <child link="D02" />
-    <axis xyz="0 0.98567 -0.16869" />
-    <limit lower="-1.0" upper="0.0" effort="0.05" velocity="7.5398223686155035" />
   </joint>
 
   <link name="shoulder_pitch_r_link">
@@ -759,7 +71,7 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="package://tiangong2pro/meshes/shoulder_pitch_r_link.STL" />
+        <mesh filename="meshes/shoulder_pitch_r_link.STL" />
       </geometry>
       <material name="">
         <color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
@@ -787,7 +99,7 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="package://tiangong2pro/meshes/shoulder_roll_r_link.STL" />
+        <mesh filename="meshes/shoulder_roll_r_link.STL" />
       </geometry>
       <material name="">
         <color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
@@ -815,7 +127,7 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="package://tiangong2pro/meshes/shoulder_yaw_r_link.STL" />
+        <mesh filename="meshes/shoulder_yaw_r_link.STL" />
       </geometry>
       <material name="">
         <color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
@@ -843,7 +155,7 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="package://tiangong2pro/meshes/elbow_pitch_r_link.STL" />
+        <mesh filename="meshes/elbow_pitch_r_link.STL" />
       </geometry>
       <material name="">
         <color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
@@ -871,7 +183,7 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="package://tiangong2pro/meshes/elbow_yaw_r_link.STL" />
+        <mesh filename="meshes/elbow_yaw_r_link.STL" />
       </geometry>
       <material name="">
         <color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
@@ -899,7 +211,7 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="package://tiangong2pro/meshes/wrist_pitch_r_link.STL" />
+        <mesh filename="meshes/wrist_pitch_r_link.STL" />
       </geometry>
       <material name="">
         <color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
@@ -928,7 +240,7 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="package://tiangong2pro/meshes/wrist_roll_r_link.STL" />
+        <mesh filename="meshes/wrist_roll_r_link.STL" />
       </geometry>
       <material name="">
         <color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
@@ -948,11 +260,84 @@
     <limit lower="-1.309" upper="1.6581" effort="6.3" velocity="7.5398223686155035" />
   </joint>
 
-  <joint name="right_hand_joint" type="fixed">
-    <origin xyz="0 0 -0.05" rpy="0 0 0" />
-    <parent link="wrist_roll_r_link" />
-    <child link="base_link_r" />
+  <link name="palm_x">
+    <inertial>
+      <mass value="0.04"/>
+      <inertia ixx="5.1458e-5" ixy="0" ixz="0" iyy="5.1458e-5" iyz="0" izz="6.125e-5"/>
+    </inertial>
+  </link>
+  
+  <link name="palm_x_neg">
+    <inertial>
+      <mass value="0.04"/>
+      <inertia ixx="5.1458e-5" ixy="0" ixz="0" iyy="5.1458e-5" iyz="0" izz="6.125e-5"/>
+    </inertial>
+  </link>
+  
+  <link name="palm_y">
+    <inertial>
+      <mass value="0.04"/>
+      <inertia ixx="5.1458e-5" ixy="0" ixz="0" iyy="5.1458e-5" iyz="0" izz="6.125e-5"/>
+    </inertial>
+  </link>
+  
+  <link name="palm_y_neg">
+    <inertial>
+      <mass value="0.04"/>
+      <inertia ixx="5.1458e-5" ixy="0" ixz="0" iyy="5.1458e-5" iyz="0" izz="6.125e-5"/>
+    </inertial>
+  </link>
+  
+  <link name="palm_z">
+    <inertial>
+      <mass value="0.04"/>
+      <inertia ixx="5.1458e-5" ixy="0" ixz="0" iyy="5.1458e-5" iyz="0" izz="6.125e-5"/>
+    </inertial>
+  </link>
+  
+  <link name="palm_z_neg">
+    <inertial>
+      <mass value="0.04"/>
+      <inertia ixx="5.1458e-5" ixy="0" ixz="0" iyy="5.1458e-5" iyz="0" izz="6.125e-5"/>
+    </inertial>
+  </link>
+
+  <joint name="palm_x_joint" type="fixed">
+    <origin rpy="0. 0. 0." xyz="0.25 0. 0."/>
+    <parent link="base_link_r"/>
+    <child link="palm_x"/>
   </joint>
+  
+  <joint name="palm_x_neg_joint" type="fixed">
+    <origin rpy="0. 0. 0." xyz="-0.25 0. 0."/>
+    <parent link="base_link_r"/>
+    <child link="palm_x_neg"/>
+  </joint>
+  
+  <joint name="palm_y_joint" type="fixed">
+    <origin rpy="0. 0. 0." xyz="0. 0.25 0."/>
+    <parent link="base_link_r"/>
+    <child link="palm_y"/>
+  </joint>
+  
+  <joint name="palm_y_neg_joint" type="fixed">
+    <origin rpy="0. 0. 0." xyz="0. -0.25 0."/>
+    <parent link="base_link_r"/>
+    <child link="palm_y_neg"/>
+  </joint>
+  
+  <joint name="palm_z_joint" type="fixed">
+    <origin rpy="0. 0. 0." xyz="0. 0. 0.25"/>
+    <parent link="base_link_r"/>
+    <child link="palm_z"/>
+  </joint>
+  
+  <joint name="palm_z_neg_joint" type="fixed">
+    <origin rpy="0. 0. 0." xyz="0. 0. -0.25"/>
+    <parent link="base_link_r"/>
+    <child link="palm_z_neg"/>
+  </joint>
+
 
   <link name="base_link_r">
     <inertial>
@@ -963,7 +348,7 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="package://tiangong2pro/meshes/base_link_r.STL" />
+        <mesh filename="meshes/base_link_r.STL" />
       </geometry>
       <material name="">
         <color rgba="0.49804 0.49804 0.49804 1" />
@@ -975,6 +360,13 @@
         <box size="0.0674 0.0674 0.1348" /></geometry>
     </collision>
   </link>
+
+  <joint name="right_hand_joint" type="fixed">
+    <origin xyz="0 0 -0.05" rpy="0 0 0" />
+    <parent link="wrist_roll_r_link" />
+    <child link="base_link_r" />
+  </joint>
+
   <link name="A00_R">
     <inertial>
       <origin xyz="2.4286E-17 3.4694E-18 -0.0057133" rpy="0 0 0" />
@@ -984,7 +376,7 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="package://tiangong2pro/meshes/A00_R.STL" />
+        <mesh filename="meshes/A00_R.STL" />
       </geometry>
       <material name="">
         <color rgba="0.69804 0.69804 0.69804 1" />
@@ -996,6 +388,7 @@
         <box size="0.0300 0.0300 0.0075" /></geometry>
     </collision> -->
   </link>
+
   <joint name="Joint_A00_R" type="revolute">
     <origin xyz="0.028022 -0.024512 -0.05" rpy="0 0 0" />
     <parent link="base_link_r" />
@@ -1003,6 +396,7 @@
     <axis xyz="0 0 -1" />
     <limit lower="-0.6" upper="0.6" effort="0.05" velocity="7.5398223686155035" />
   </joint>
+
   <link name="A01_R">
     <inertial>
       <origin xyz="0.025411 -0.0092793 0.0035631" rpy="0 0 0" />
@@ -1012,7 +406,7 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="package://tiangong2pro/meshes/A01_R.STL" />
+        <mesh filename="meshes/A01_R.STL" />
       </geometry>
       <material name="">
         <color rgba="0.69804 0.69804 0.69804 1" />
@@ -1040,7 +434,7 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="package://tiangong2pro/meshes/A02_R.STL" />
+        <mesh filename="meshes/A02_R.STL" />
       </geometry>
       <material name="">
         <color rgba="0.69804 0.69804 0.69804 1" />
@@ -1068,7 +462,7 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="package://tiangong2pro/meshes/B00_R.STL" />
+        <mesh filename="meshes/B00_R.STL" />
       </geometry>
       <material name="">
         <color rgba="0.69804 0.69804 0.69804 1" />
@@ -1097,7 +491,7 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="package://tiangong2pro/meshes/B01_R.STL" />
+        <mesh filename="meshes/B01_R.STL" />
       </geometry>
       <material name="">
         <color rgba="0.69804 0.69804 0.69804 1" />
@@ -1127,7 +521,7 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="package://tiangong2pro/meshes/B02_R.STL" />
+        <mesh filename="meshes/B02_R.STL" />
       </geometry>
       <material name="">
         <color rgba="0.69804 0.69804 0.69804 1" />
@@ -1158,7 +552,7 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="package://tiangong2pro/meshes/C00_R.STL" />
+        <mesh filename="meshes/C00_R.STL" />
       </geometry>
       <material name="">
         <color rgba="0.69804 0.69804 0.69804 1" />
@@ -1187,7 +581,7 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="package://tiangong2pro/meshes/C01_R.STL" />
+        <mesh filename="meshes/C01_R.STL" />
       </geometry>
       <material name="">
         <color rgba="0.69804 0.69804 0.69804 1" />
@@ -1217,7 +611,7 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="package://tiangong2pro/meshes/C02_R.STL" />
+        <mesh filename="meshes/C02_R.STL" />
       </geometry>
       <material name="">
         <color rgba="0.69804 0.69804 0.69804 1" />
@@ -1248,7 +642,7 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="package://tiangong2pro/meshes/D00_R.STL" />
+        <mesh filename="meshes/D00_R.STL" />
       </geometry>
       <material name="">
         <color rgba="0.69804 0.69804 0.69804 1" />
@@ -1278,7 +672,7 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="package://tiangong2pro/meshes/D01_R.STL" />
+        <mesh filename="meshes/D01_R.STL" />
       </geometry>
       <material name="">
         <color rgba="0.69804 0.69804 0.69804 1" />
@@ -1308,7 +702,7 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="package://tiangong2pro/meshes/D02_R.STL" />
+        <mesh filename="meshes/D02_R.STL" />
       </geometry>
       <material name="">
         <color rgba="0.69804 0.69804 0.69804 1" />
@@ -1339,7 +733,7 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="package://tiangong2pro/meshes/camera_body_front_link.STL" />
+        <mesh filename="meshes/camera_body_front_link.STL" />
       </geometry>
       <material name="">
         <color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
@@ -1367,7 +761,7 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="package://tiangong2pro/meshes/camera_body_back_link.STL" />
+        <mesh filename="meshes/camera_body_back_link.STL" />
       </geometry>
       <material name="">
         <color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
@@ -1386,4 +780,4 @@
     <child link="camera_body_back_link" />
     <axis xyz="0 0 0" />
   </joint>
-]</robot>
+</robot>
