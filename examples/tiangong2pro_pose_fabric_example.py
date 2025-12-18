@@ -28,12 +28,10 @@ from fabrics_sim.worlds.world_mesh_model import WorldMeshesModel
 This example demonstrates how to create and use a tiangong2pro fabric with palm pose and
 PCA action spaces. Additional options include:
     1) graph capture of fabric
-    2) rendering of the robot and world
-    3) rendering of the fabrics collision spheres
-    4) setting batch size (number of robots)
+    2) setting batch size (number of robots)
 
 Example usage:
-python tiangong2pro_pose_fabric_example.py --batch_size=10 --render --cuda_graph
+python tiangong2pro_pose_fabric_example.py --batch_size=10 --cuda_graph
 """
 
 # Reduce print precision
@@ -42,14 +40,14 @@ torch.set_printoptions(precision=4)
 # Parse arguments
 parser = argparse.ArgumentParser(description='Tiangong2Pro fabric example.')
 parser.add_argument('--batch_size', type=int, required=True, help='Specify batch size.')
-parser.add_argument('--render', action='store_true', help='True to render fabric motion.')
-parser.add_argument('--vis_col_spheres', action='store_true', help='True to visualize collision spheres of robot.')
+# parser.add_argument('--render', action='store_true', help='True to render fabric motion.')
+# parser.add_argument('--vis_col_spheres', action='store_true', help='True to visualize collision spheres of robot.')
 parser.add_argument('--cuda_graph', action='store_true', help='True to enable graph capture of fabric.')
 args = parser.parse_args()
 
 # Settings
-use_viz = args.render
-render_spheres = args.vis_col_spheres
+# use_viz = args.render
+# render_spheres = args.vis_col_spheres
 cuda_graph = args.cuda_graph
 batch_size = args.batch_size
 
@@ -121,19 +119,19 @@ body_sphere_radii = tiangong2pro_fabric.get_sphere_radii()
 sphere_position, _ = tiangong2pro_fabric.get_taskmap("body_points")(q.detach(), None)
 
 # Create visualizer
-robot_visualizer = None
-if use_viz:
-    robot_dir_name = "kuka_allegro_sim"
-    robot_name = "kuka_allegro_sim"
-    vertical_offset = 0.
-    if render_spheres:
-        robot_visualizer = RobotVisualizer(robot_dir_name, robot_name, batch_size, device,
-                                    body_sphere_radii, sphere_position,
-                                    world_model, vertical_offset, tiangong2pro_fabric.get_joint_names())
-    else:
-        robot_visualizer = RobotVisualizer(robot_dir_name, robot_name, batch_size, device,
-                                    None, None,
-                                    world_model, vertical_offset, tiangong2pro_fabric.get_joint_names())
+# robot_visualizer = None
+# if use_viz:
+#     robot_dir_name = "tiangong2pro"
+#     robot_name = "tiangong2pro"
+#     vertical_offset = 0.
+#     if render_spheres:
+#         robot_visualizer = RobotVisualizer(robot_dir_name, robot_name, batch_size, device,
+#                                     body_sphere_radii, sphere_position,
+#                                     world_model, vertical_offset, tiangong2pro_fabric.get_joint_names())
+#     else:
+#         robot_visualizer = RobotVisualizer(robot_dir_name, robot_name, batch_size, device,
+#                                     None, None,
+#                                     world_model, vertical_offset, tiangong2pro_fabric.get_joint_names())
 # Graph capture
 g = None
 q_new = None
@@ -187,19 +185,19 @@ for i in range(int(control_rate * total_time)):
         q, qd, qdd = tiangong2pro_integrator.step(q.detach(), qd.detach(), qdd.detach(), timestep)
     
     # Render, albeit at a lower framerate
-    if use_viz and (i % 4 == 0):
-        # Get body sphere locations reshape into (batch size x num spheres, 3) tensor
-        if render_spheres:
-            sphere_position = tiangong2pro_fabric.get_taskmap_position("body_points").detach().cpu()
-            sphere_position =\
-                sphere_position.reshape(batch_size * len(body_sphere_radii), -1).detach().cpu().numpy()
-        else:
-            sphere_position = None
+    # if use_viz and (i % 4 == 0):
+    #     # Get body sphere locations reshape into (batch size x num spheres, 3) tensor
+    #     if render_spheres:
+    #         sphere_position = tiangong2pro_fabric.get_taskmap_position("body_points").detach().cpu()
+    #         sphere_position =\
+    #             sphere_position.reshape(batch_size * len(body_sphere_radii), -1).detach().cpu().numpy()
+    #     else:
+    #         sphere_position = None
 
-        robot_visualizer.render(q_prev.detach().cpu().numpy(),
-                                qd_prev.detach().cpu().numpy() * 0., # setting to 0 to avoid jitters
-                                sphere_position,
-                                palm_target.detach().cpu().numpy())
+    #     robot_visualizer.render(q_prev.detach().cpu().numpy(),
+    #                             qd_prev.detach().cpu().numpy() * 0., # setting to 0 to avoid jitters
+    #                             sphere_position,
+    #                             palm_target.detach().cpu().numpy())
     
     # Get distances to upper, lower joint limits and collision status
     dist_to_upper_limit = tiangong2pro_fabric.get_taskmap_position("upper_joint_limit")
@@ -215,8 +213,8 @@ for i in range(int(control_rate * total_time)):
           'min dist', '%.3f' % tiangong2pro_fabric.base_fabric_repulsion.signed_distance.min())
 
 # Destroy visualizer
-if use_viz:
-    print('Destroying visualizer')
-    robot_visualizer.close()
+# if use_viz:
+#     print('Destroying visualizer')
+#     robot_visualizer.close()
 
 print('Done')
