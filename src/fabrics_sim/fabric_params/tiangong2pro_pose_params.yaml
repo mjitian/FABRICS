@@ -91,7 +91,8 @@ fabric_params:
                                     ["C01_R", "body_yaw_link"],
                                     ["C02_R", "body_yaw_link"],
                                     ["D01_R", "body_yaw_link"],
-                                    ["D02_R", "body_yaw_link"],]
+                                    ["D02_R", "body_yaw_link"],
+                                    ["A02_R", "B02_R"]]
     cspace_damping:
       gain: 10.
     speed_control:
@@ -101,12 +102,6 @@ fabric_params:
     joint_limits:
       active: True
       acceleration: [7.5, 7.5, 10., 10., 10., 20., 20.,
-                     15., 15., 15.,
-                     15., 15., 15.,
-                     15., 15., 15.,
-                     15., 15., 15.]
+                     15., 15.,]
       jerk: [3750., 3750., 5000., 5000., 5000., 10000., 10000.,
-             2000., 2000., 2000.,
-             2000., 2000., 2000.,
-             2000., 2000., 2000.,
-             2000., 2000., 2000.]
+             2000., 2000.,]

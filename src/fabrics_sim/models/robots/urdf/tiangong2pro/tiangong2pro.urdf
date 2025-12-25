@@ -180,7 +180,7 @@
     <origin xyz="0.075191 0.010935 0.074436" rpy="-1.8326 0 -1.5708" />
     <parent link="head_roll_link" />
     <child link="camera_head_link" />
-    <axis xyz="0 0 0" />
+    <!-- <axis xyz="0 0 0" /> -->
   </joint>
 
 
@@ -511,7 +511,7 @@
         <box size="0.0300 0.0300 0.0075" /></geometry>
     </collision> -->
   </link>
-  <joint name="Joint_A00_R" type="revolute">
+  <joint name="Joint_A00_R" type="fixed">
     <origin xyz="0.028022 -0.024512 -0.05" rpy="0 0 0" />
     <parent link="base_link_r" />
     <child link="A00_R" />
@@ -572,7 +572,7 @@
     </collision>
   </link>
 
-  <joint name="Joint_A02_R" type="revolute">
+  <joint name="Joint_A02_R" type="fixed">
     <origin xyz="0.048864 -0.017785 0" rpy="0 0 0" />
     <parent link="A01_R" />
     <child link="A02_R" />
@@ -602,7 +602,7 @@
     </collision> -->
   </link>
   
-  <joint name="Joint_B00_R" type="revolute">
+  <joint name="Joint_B00_R" type="fixed">
     <origin xyz="-0.020055 -0.024512 -0.131" rpy="0 0 0" />
     <parent link="base_link_r" />
     <child link="B00_R" />
@@ -662,7 +662,7 @@
     </collision>
   </link>
   
-  <joint name="Joint_B02_R" type="revolute">
+  <joint name="Joint_B02_R" type="fixed">
     <origin xyz="0 0 -0.052" rpy="0 0 0" />
     <parent link="B01_R" />
     <child link="B02_R" />
@@ -692,7 +692,7 @@
     </collision> -->
   </link>
   
-  <joint name="Joint_C00_R" type="revolute">
+  <joint name="Joint_C00_R" type="fixed">
     <origin xyz="-0.020055 0.0082885 -0.12495" rpy="0 0 0" />
     <parent link="base_link_r" />
     <child link="C00_R" />
@@ -721,7 +721,7 @@
     </collision>
   </link>
   
-  <joint name="Joint_C01_R" type="revolute">
+  <joint name="Joint_C01_R" type="fixed">
     <origin xyz="0.0075 0 0" rpy="0 0 0" />
     <parent link="C00_R" />
     <child link="C01_R" />
@@ -752,7 +752,7 @@
     </collision>
   </link>
   
-  <joint name="Joint_C02_R" type="revolute">
+  <joint name="Joint_C02_R" type="fixed">
     <origin xyz="0 0.0054355 -0.051715" rpy="0 0 0" />
     <parent link="C01_R" />
     <child link="C02_R" />
@@ -782,7 +782,7 @@
     </collision> -->
   </link>
   
-  <joint name="Joint_D00_R" type="revolute">
+  <joint name="Joint_D00_R" type="fixed">
     <origin xyz="-0.020055 0.040488 -0.11394" rpy="0 0 0" />
     <parent link="base_link_r" />
     <child link="D00_R" />
@@ -812,7 +812,7 @@
     </collision>
   </link>
   
-  <joint name="Joint_D01_R" type="revolute">
+  <joint name="Joint_D01_R" type="fixed">
     <origin xyz="0.0075 0 0" rpy="0 0 0" />
     <parent link="D00_R" />
     <child link="D01_R" />
@@ -843,7 +843,7 @@
     </collision>
   </link>
   
-  <joint name="Joint_D02_R" type="revolute">
+  <joint name="Joint_D02_R" type="fixed">
     <origin xyz="0 0.012139 -0.050563" rpy="0 0 0" />
     <parent link="D01_R" />
     <child link="D02_R" />
@@ -877,7 +877,7 @@
     <origin xyz="0.090583 0.02375 0.039012" rpy="-2.1468 0 -1.5708" />
     <parent link="body_yaw_link" />
     <child link="camera_body_front_link" />
-    <axis xyz="0 0 0" />
+    <!-- <axis xyz="0 0 0" /> -->
   </joint>
   <link name="camera_body_back_link">
     <inertial>
@@ -905,6 +905,6 @@
     <origin xyz="-0.11363 0.02375 0.2746" rpy="2.0071 0 -1.5708" />
     <parent link="body_yaw_link" />
     <child link="camera_body_back_link" />
-    <axis xyz="0 0 0" />
+    <!-- <axis xyz="0 0 0" /> -->
   </joint>
 </robot>

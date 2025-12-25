@@ -86,27 +86,19 @@ num_joints = tiangong2pro_fabric.num_joints
 # Create integrator for the fabric dynamics.
 tiangong2pro_integrator = DisplacementIntegrator(tiangong2pro_fabric)
 # Create starting states for the robot.
-# NOTE: first 7 angles are arm angles, last 16 angles are hand angles
-# q = torch.tensor([-0.85, -0.50,  0.76,  1.25, -1.76, 0.90, 0.64,
-#                   0.0,  0.3,  0.3,  0.3,
-#                   0.0,  0.3,  0.3,  0.3,
-#                   0.0,  0.3,  0.3,  0.3,
-#                   0.72383858,  0.60147215,  0.33795027,  0.60845138], device=device)
-q = torch.tensor([-0.85, -0.50,  0.76,  1.25, -1.76, 0.90, 0.64,
-                  0.0,  0.3,  0.3,
-                  0.0,  0.3,  0.3,
-                  0.0,  0.3,  0.3,
-                  0.72383858,  0.60147215,  0.33795027], device=device)
+# NOTE: first 7 angles are arm angles, last 2 angles are hand angles
+q = torch.tensor([0.0, 0.0,  0.0,  -1.5, 0.0, 0.0, 0.0,
+                  0.0, 0.0], device=device)
 # Resize according to batch size
 q = q.unsqueeze(0).repeat(batch_size, 1).contiguous()
 # Start with zero initial velocities and accelerations
 qd = torch.zeros(batch_size, num_joints, device=device)
 qdd = torch.zeros(batch_size, num_joints, device=device)
 
-# The minimum and maximum values for the PCA targets, and initial targets
-hand_mins = torch.tensor([ 0.2475, -0.3286, -0.7238, -0.0192, -0.5532], device=device)
-hand_maxs = torch.tensor([3.8336, 3.0025, 0.8977, 1.0243, 0.0629], device=device)
-hand_targets = (hand_maxs - hand_mins) * torch.rand(batch_size, 5, device=device) + hand_mins
+# The minimum and maximum values for the hand targets, and initial targets
+hand_mins = torch.tensor([0.0, 1.5708], device=device)
+hand_maxs = torch.tensor([0.0, 1.5708], device=device)
+hand_targets = (hand_maxs - hand_mins) * torch.rand(batch_size, 2, device=device) + hand_mins
 
 # Palm target is (origin, Euler ZYX)
 palm_target = np.array([-0.6868,  0.0320,  0.6685, -2.3873, -0.0824,  3.1301])
@@ -154,7 +146,7 @@ for i in range(int(control_rate * total_time)):
     # Every two seconds switch targets
     if i % 120 == 0:
         # Update targets for fingers
-        hand_targets.copy_((hand_maxs - hand_mins) * torch.rand(batch_size, 5, device=device) + hand_mins)
+        hand_targets.copy_((hand_maxs - hand_mins) * torch.rand(batch_size, 2, device=device) + hand_mins)
 
         # Update targets for palm pose
         palm_target.copy_(torch.rand_like(palm_target))

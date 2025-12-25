@@ -27,7 +27,7 @@ from fabrics_sim.utils.rotation_utils import quaternion_to_matrix, matrix_to_qua
 class TianGong2ProPoseFabric(BaseFabric):
     """
     Creates a fabric for the tiangong2pro that opens up a pose action space for the palm
-    and PCA'ed action space for the hand. Includes self-collision, env collision avoidance,
+    Includes self-collision, env collision avoidance,
     joint limiting, accel/jerk limiting, speed control, redundancy resolution.
     """
     def __init__(self, batch_size, device, timestep, graph_capturable=True):
@@ -51,11 +51,8 @@ class TianGong2ProPoseFabric(BaseFabric):
         # Going to set a default config for the cspace attractor that gets
         # used until an actual cspace command comes in
         default_config =\
-            torch.tensor([-0.85, -0.50,  0.76,  1.25, -1.76, 0.90, 0.64,
-                          0.0, 0.75, 0.75,
-                          0.0, 0.75, 0.75,
-                          0.0, 0.75, 0.75,
-                          1.57, 0.5, 0.5], device=self.device)
+            torch.tensor([0.0, 0.0,  0.0,  -1.5, 0.0, 0.0, 0.0,
+                          0.0, 0.0], device=self.device)
         self.default_config = default_config.unsqueeze(0).repeat(self.batch_size, 1)
 
         # Store pca matrix for hand
@@ -146,26 +143,8 @@ class TianGong2ProPoseFabric(BaseFabric):
     def add_hand_fabric(self):
         # TODO: this will make the PCA space fabric and place an attractor there
         # TODO: 需要根据 Amazing Hand 修改这个矩阵
-        pca_matrix = torch.tensor([[-3.8872e-02,  3.7917e-01,  4.4703e-01,
-                                     2.1159e-03,  3.2014e-01,  4.4660e-01,  
-                                     5.6869e-05,  2.9845e-01,  3.8575e-01, 
-                                    -1.4790e-02,  9.8163e-02,  4.3551e-02],
-                                   [-5.1148e-02, -1.3007e-01,  5.7727e-02,
-                                     1.0156e-02, -1.8469e-01,  5.3809e-02,
-                                     1.3351e-04, -1.7747e-01,  2.7809e-02,
-                                     2.9753e-02,  2.6149e-02,  6.6994e-02],
-                                   [-5.7137e-02, -3.4707e-01,  3.3365e-01, 
-                                    -4.3560e-02, -4.7666e-01,  3.2517e-01, 
-                                    -5.9691e-05, -4.5790e-01,  3.6536e-01,  
-                                     2.3925e-03,  3.7238e-02, -1.0124e-01],
-                                   [ 2.2795e-02, -3.4090e-02,  3.4366e-02,  
-                                     2.3471e-02,  4.6123e-02,  9.8059e-02, 
-                                    -1.6452e-04, -1.3741e-02,  1.3813e-01,  
-                                     2.2661e-01, -5.9911e-01,  7.0257e-01],
-                                   [-4.4911e-02, -4.7156e-01,  9.3124e-02, 
-                                    -2.4607e-03,  9.5564e-02,  1.2470e-01,  
-                                     1.3821e-04,  4.6072e-01,  9.9315e-02, 
-                                    -4.7617e-01, -2.7734e-01, -2.3989e-01]], device=self.device)
+        pca_matrix = torch.tensor([[1, 0],
+                                   [0, 1]], device=self.device)
 
         self._pca_matrix = torch.clone(pca_matrix.detach())
 
