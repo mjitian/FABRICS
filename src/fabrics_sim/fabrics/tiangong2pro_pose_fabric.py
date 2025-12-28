@@ -24,7 +24,7 @@ from fabrics_sim.utils.path_utils import get_robot_urdf_path
 from fabrics_sim.utils.rotation_utils import euler_to_matrix, matrix_to_euler
 from fabrics_sim.utils.rotation_utils import quaternion_to_matrix, matrix_to_quaternion
 
-class TianGong2ProPoseFabric(BaseFabric):
+class TiangongPoseFabric(BaseFabric):
     """
     Creates a fabric for the tiangong2pro that opens up a pose action space for the palm
     Includes self-collision, env collision avoidance,
@@ -42,7 +42,7 @@ class TianGong2ProPoseFabric(BaseFabric):
                          graph_capturable=graph_capturable)
 
         # URDF filpath for allegro
-        robot_dir_name = "tiangong2pro"
+        robot_dir_name = "tiangong"
         robot_name = "tiangong2pro"
         self.urdf_path = get_robot_urdf_path(robot_dir_name, robot_name)
         

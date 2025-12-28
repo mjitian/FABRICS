@@ -18,7 +18,7 @@ import torch
 import numpy as np
 
 # Fabrics imports
-from fabrics_sim.fabrics.tiangong2pro_pose_fabric import TianGong2ProPoseFabric
+from fabrics_sim.fabrics.tiangong2pro_pose_fabric import TiangongPoseFabric
 from fabrics_sim.integrator.integrators import DisplacementIntegrator
 from fabrics_sim.utils.utils import initialize_warp, capture_fabric
 from fabrics_sim.visualization.robot_visualizer import RobotVisualizer
@@ -80,7 +80,7 @@ total_time = 60.
 
 # Create TianGong2Pro fabric palm pose and finger PCA action spaces
 tiangong2pro_fabric =\
-    TianGong2ProPoseFabric(batch_size, device, timestep, graph_capturable=cuda_graph)
+    TiangongPoseFabric(batch_size, device, timestep, graph_capturable=cuda_graph)
 num_joints = tiangong2pro_fabric.num_joints
             
 # Create integrator for the fabric dynamics.
@@ -110,20 +110,6 @@ body_sphere_radii = tiangong2pro_fabric.get_sphere_radii()
 # Get body sphere locations
 sphere_position, _ = tiangong2pro_fabric.get_taskmap("body_points")(q.detach(), None)
 
-# Create visualizer
-# robot_visualizer = None
-# if use_viz:
-#     robot_dir_name = "tiangong2pro"
-#     robot_name = "tiangong2pro"
-#     vertical_offset = 0.
-#     if render_spheres:
-#         robot_visualizer = RobotVisualizer(robot_dir_name, robot_name, batch_size, device,
-#                                     body_sphere_radii, sphere_position,
-#                                     world_model, vertical_offset, tiangong2pro_fabric.get_joint_names())
-#     else:
-#         robot_visualizer = RobotVisualizer(robot_dir_name, robot_name, batch_size, device,
-#                                     None, None,
-#                                     world_model, vertical_offset, tiangong2pro_fabric.get_joint_names())
 # Graph capture
 g = None
 q_new = None
