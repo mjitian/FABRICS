@@ -6,12 +6,13 @@
 # disclosure or distribution of this material and related documentation                              
 # without an express license agreement from NVIDIA CORPORATION or                                    
 # its affiliates is strictly prohibited.
-
+# 到桌子距离36
+# 桌子高93
 table:
   env_index: all
   type: box
   scaling: 0.725 1.16 0.03
-  transform: -0.5725 0.088 0.235 0. 0. 0. 1.
+  transform: 0.7225 0.088 0.915 0. 0. 0. 1.
 
 # NOTE: taking out camera1 and camera3 for now because we've physically
 # removed those cameras from the scene. This opens up the work volume
