@@ -684,8 +684,10 @@ class BaseFabric(torch.nn.Module):
             for i in range(len(joints)):
                 # NOTE: We are only supporting revolute joints right now.
                 if joints[i].joint_type == 'revolute':
-                    self._num_joints += 1
-                    self.joint_names.append(joints[i].name)
+                    # Skip mimic joints
+                    if joints[i].mimic is None:
+                        self._num_joints += 1
+                        self.joint_names.append(joints[i].name)
 
             # Convert to Warp object
             print('importing robot')

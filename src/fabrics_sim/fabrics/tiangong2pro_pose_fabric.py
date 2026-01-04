@@ -48,11 +48,27 @@ class TiangongPoseFabric(BaseFabric):
         
         self.load_robot(robot_dir_name, robot_name, batch_size)
         
+        # Identify active joints and mimic map
+        movable_joints = [j for j in self.urdfpy_robot.joints if j.joint_type in ['revolute', 'prismatic', 'continuous']]
+        joint_name_to_index = {j.name: i for i, j in enumerate(movable_joints)}
+        
+        self.active_joint_indices = []
+        self.mimic_info = {} # mimic_idx -> (parent_idx, multiplier, offset)
+        
+        for i, joint in enumerate(movable_joints):
+            if joint.mimic is None:
+                self.active_joint_indices.append(i)
+            else:
+                parent_name = joint.mimic.joint
+                if parent_name in joint_name_to_index:
+                    parent_idx = joint_name_to_index[parent_name]
+                    self.mimic_info[i] = (parent_idx, joint.mimic.multiplier, joint.mimic.offset)
+        
         # Going to set a default config for the cspace attractor that gets
         # used until an actual cspace command comes in
         default_config =\
             torch.tensor([0.0, 0.0,  0.0,  -1.5, 0.0, 0.0, 0.0,
-                          0.0, 0.0], device=self.device)
+                          0.0, 0.0, 0.0, 0.0], device=self.device)
         self.default_config = default_config.unsqueeze(0).repeat(self.batch_size, 1)
 
         # Store pca matrix for hand
@@ -80,7 +96,8 @@ class TiangongPoseFabric(BaseFabric):
         for i in range(len(joints)):
             # NOTE: We are only supporting revolute joints right now.
             if joints[i].joint_type == 'revolute':
-                upper_joint_limits.append(joints[i].limit.upper)
+                if joints[i].mimic is None:
+                    upper_joint_limits.append(joints[i].limit.upper)
         # Create upper joint limiting
         # Create taskmap and its container.
         taskmap_name = "upper_joint_limit"
@@ -99,7 +116,8 @@ class TiangongPoseFabric(BaseFabric):
         lower_joint_limits = []
         for i in range(len(joints)):
             if joints[i].joint_type == 'revolute':
-                lower_joint_limits.append(joints[i].limit.lower)
+                if joints[i].mimic is None:
+                    lower_joint_limits.append(joints[i].limit.lower)
 
         # Create taskmap and its container.
         taskmap_name = "lower_joint_limit"
@@ -143,8 +161,10 @@ class TiangongPoseFabric(BaseFabric):
     def add_hand_fabric(self):
         # TODO: this will make the PCA space fabric and place an attractor there
         # TODO: 需要根据 Amazing Hand 修改这个矩阵
-        pca_matrix = torch.tensor([[1, 0],
-                                   [0, 1]], device=self.device)
+        pca_matrix = torch.tensor([[1, 0, 0, 0],
+                                   [0, 1, 0, 0],
+                                   [0, 0, 1, 0],
+                                   [0, 0, 0, 1]], device=self.device)
 
         self._pca_matrix = torch.clone(pca_matrix.detach())
 
@@ -182,7 +202,9 @@ class TiangongPoseFabric(BaseFabric):
                                 "palm_z", "palm_z_neg"]
         # control_point_frames = ["base_link_r",]
         taskmap = RobotFrameOriginsTaskMap(self.urdf_path, control_point_frames,
-                                           self.batch_size, self.device)
+                                           self.batch_size, self.device,
+                                           active_indices=self.active_joint_indices,
+                                           mimic_info=self.mimic_info)
         self.add_taskmap(taskmap_name, taskmap, graph_capturable=self.graph_capturable)
             
         # Create and add geometric attractor
@@ -236,7 +258,9 @@ class TiangongPoseFabric(BaseFabric):
         # Set name for taskmap, create it, and add to pool of taskmaps.
         taskmap_name = "body_points"
         taskmap = RobotFrameOriginsTaskMap(self.urdf_path, collision_sphere_frames,
-                                           self.batch_size, self.device)
+                                           self.batch_size, self.device,
+                                           active_indices=self.active_joint_indices,
+                                           mimic_info=self.mimic_info)
         self.add_taskmap(taskmap_name, taskmap, graph_capturable=self.graph_capturable)
 
         # Create fabric term and add to taskmap container.

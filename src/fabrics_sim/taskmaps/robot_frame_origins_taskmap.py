@@ -60,7 +60,7 @@ class RobotKinematics(torch.autograd.Function):
                 None)
 
 class RobotFrameOriginsTaskMap(BaseMap):
-    def __init__(self, urdf_path, link_names, batch_size, device):
+    def __init__(self, urdf_path, link_names, batch_size, device, active_indices=None, mimic_info=None):
         """
         Constructor for building the desired robot taskmap.
         -----------------------------------------
@@ -68,6 +68,8 @@ class RobotFrameOriginsTaskMap(BaseMap):
         :param link_names: list of link names (str) of the robot to build the taskmap
         :param batch_size: int, size of the batch of robots
         :param device: type str that sets the cuda device for the fabric
+        :param active_indices: list of int, indices of active joints in the full configuration vector
+        :param mimic_info: dict, mapping from mimic joint index to (parent joint index, multiplier, offset)
         """
         super().__init__(device)
 
@@ -77,6 +79,8 @@ class RobotFrameOriginsTaskMap(BaseMap):
         self.link_names = link_names
         self.link_indices = None
         self.batch_size = batch_size
+        self.active_indices = active_indices
+        self.mimic_info = mimic_info
 
         self.init_robot_kinematics(self.batch_size)
 
@@ -100,8 +104,31 @@ class RobotFrameOriginsTaskMap(BaseMap):
 #        if self.batch_size != q.shape[0]:
 #            self.init_robot_kinematics(q.shape[0])
 
+        # Handle mimic joints if specified
+        if self.active_indices is not None and self.mimic_info is not None:
+            # Construct full q
+            # Determine full dimension
+            # Assuming max index in active_indices and mimic_info keys covers all joints
+            max_idx = max(max(self.active_indices), max(self.mimic_info.keys()) if self.mimic_info else 0)
+            full_dim = max_idx + 1
+            
+            q_full = torch.zeros(self.batch_size, full_dim, device=self.device)
+            
+            # Fill active joints
+            # q is (batch, num_active)
+            for i, idx in enumerate(self.active_indices):
+                q_full[:, idx] = q[:, i]
+                
+            # Fill mimic joints
+            for mimic_idx, (parent_idx, multiplier, offset) in self.mimic_info.items():
+                q_full[:, mimic_idx] = q_full[:, parent_idx] * multiplier + offset
+                
+            q_input = q_full
+        else:
+            q_input = q
+
         # Calculate the link transforms and their origin Jacobians.
-        link_transforms, jacobians = RobotKinematics.apply(q, self.robot_kinematics)
+        link_transforms, jacobians = RobotKinematics.apply(q_input, self.robot_kinematics)
 
         # Pull out the position of the origins and stack them across all desired frames.
         x = link_transforms[:, self.link_indices, :3].reshape((self.batch_size,
@@ -109,6 +136,29 @@ class RobotFrameOriginsTaskMap(BaseMap):
 
         # Pull out the Jacobians and stack them for the desired frames.
         # jacobian is of shape (batch_size, num_links, root_dim, 3)
+        
+        if self.active_indices is not None and self.mimic_info is not None:
+            # We need to condense the jacobian from full_dim to num_active
+            # J_parent_new = J_parent_old + J_mimic * multiplier
+            
+            # First, copy the jacobians for active joints
+            # jacobians is (batch, num_links, full_dim, 3)
+            
+            # Create a new jacobian tensor for active joints
+            jacobians_reduced = torch.zeros(self.batch_size, jacobians.shape[1], q.shape[1], 3, device=self.device)
+            
+            for i, idx in enumerate(self.active_indices):
+                jacobians_reduced[:, :, i, :] = jacobians[:, :, idx, :]
+                
+            # Add contributions from mimic joints
+            for mimic_idx, (parent_idx, multiplier, offset) in self.mimic_info.items():
+                # Find which active index corresponds to parent_idx
+                if parent_idx in self.active_indices:
+                    active_pos = self.active_indices.index(parent_idx)
+                    jacobians_reduced[:, :, active_pos, :] += jacobians[:, :, mimic_idx, :] * multiplier
+            
+            jacobians = jacobians_reduced
+
         # so we transpose the last two dimensions to get a
         # jacobian of shape (batch_size, num_links, 3, root_dim)
         # and then reshape it to (batch_size, num_links * 3, root_dim)

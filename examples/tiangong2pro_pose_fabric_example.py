@@ -86,9 +86,9 @@ num_joints = tiangong2pro_fabric.num_joints
 # Create integrator for the fabric dynamics.
 tiangong2pro_integrator = DisplacementIntegrator(tiangong2pro_fabric)
 # Create starting states for the robot.
-# NOTE: first 7 angles are arm angles, last 2 angles are hand angles
+# NOTE: first 7 angles are arm angles, last 4 angles are hand angles
 q = torch.tensor([0.0, 0.0,  0.0,  -1.5, 0.0, 0.0, 0.0,
-                  0.0, 0.0], device=device)
+                  0.0, 0.0, 0.0, 0.0], device=device)
 # Resize according to batch size
 q = q.unsqueeze(0).repeat(batch_size, 1).contiguous()
 # Start with zero initial velocities and accelerations
@@ -96,9 +96,9 @@ qd = torch.zeros(batch_size, num_joints, device=device)
 qdd = torch.zeros(batch_size, num_joints, device=device)
 
 # The minimum and maximum values for the hand targets, and initial targets
-hand_mins = torch.tensor([0.0, 1.5708], device=device)
-hand_maxs = torch.tensor([0.0, 1.5708], device=device)
-hand_targets = (hand_maxs - hand_mins) * torch.rand(batch_size, 2, device=device) + hand_mins
+hand_mins = torch.tensor([0.0, 0.0, 0.0, 0.0], device=device)
+hand_maxs = torch.tensor([1.5708, 1.5708, 1.5708, 1.5708], device=device)
+hand_targets = (hand_maxs - hand_mins) * torch.rand(batch_size, 4, device=device) + hand_mins
 
 # Palm target is (origin, Euler ZYX)
 palm_target = np.array([-0.6868,  0.0320,  0.6685, -2.3873, -0.0824,  3.1301])
@@ -132,7 +132,7 @@ for i in range(int(control_rate * total_time)):
     # Every two seconds switch targets
     if i % 120 == 0:
         # Update targets for fingers
-        hand_targets.copy_((hand_maxs - hand_mins) * torch.rand(batch_size, 2, device=device) + hand_mins)
+        hand_targets.copy_((hand_maxs - hand_mins) * torch.rand(batch_size, 4, device=device) + hand_mins)
 
         # Update targets for palm pose
         palm_target.copy_(torch.rand_like(palm_target))
