@@ -461,6 +461,15 @@
     <child link="palm_z_neg"/>
   </joint>
 
+  <link name="base_link_r_sphere">
+  </link>
+  
+  <joint name="base_link_r_joint_sphere" type="fixed">
+    <parent link="base_link_r"/>
+    <child link="base_link_r_sphere"/>
+    <origin rpy="0 0 0" xyz="-0.04 0 -0.07"/>
+    <axis xyz="0 0 1"/>
+  </joint>
 
   <link name="base_link_r">
     <inertial>
@@ -511,6 +520,7 @@
         <box size="0.0300 0.0300 0.0075" /></geometry>
     </collision> -->
   </link>
+
   <joint name="Joint_A00_R" type="fixed">
     <origin xyz="0.028022 -0.024512 -0.05" rpy="0 0 0" />
     <parent link="base_link_r" />
@@ -579,7 +589,8 @@
     <axis xyz="0.34202 0.93969 0" />
     <limit lower="0.0" upper="1.5708" effort="0.05" velocity="7.5398223686155035" /> 
   </joint>
-  
+
+
   <link name="B00_R">
     <inertial>
       <origin xyz="0.0057133 0 -2.7756E-17" rpy="0 0 0" />
@@ -607,7 +618,8 @@
     <parent link="base_link_r" />
     <child link="B00_R" />
     <axis xyz="-1 0 0" />
-    <limit lower="-0.6" upper="0.6" effort="0.05" velocity="7.5398223686155035" />  </joint>
+    <limit lower="-0.6" upper="0.6" effort="0.05" velocity="7.5398223686155035" />  
+  </joint>
   
   <link name="B01_R">
     <inertial>
@@ -669,7 +681,7 @@
     <axis xyz="0 -1 0" />
     <limit lower="0.0" upper="1.5708" effort="0.05" velocity="7.5398223686155035" />  
   </joint>
-  
+
   <link name="C00_R">
     <inertial>
       <origin xyz="0.0057133 1.7347E-18 -2.7756E-17" rpy="0 0 0" />
@@ -697,7 +709,8 @@
     <parent link="base_link_r" />
     <child link="C00_R" />
     <axis xyz="-1 0 0" />
-    <limit lower="-0.6" upper="0.6" effort="0.05" velocity="7.5398223686155035" />  </joint>
+    <limit lower="-0.6" upper="0.6" effort="0.05" velocity="7.5398223686155035" />
+  </joint>
   
   <link name="C01_R">
     <inertial>

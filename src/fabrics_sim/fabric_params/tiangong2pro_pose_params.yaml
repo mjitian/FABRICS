@@ -67,15 +67,15 @@ fabric_params:
            "shoulder_yaw_r_link", 
            "elbow_yaw_r_link",
            
-           "base_link_r",
-           "A01_R", "A02_R", "B01_R", "B02_R",
+           "base_link_r","base_link_r_sphere",
+           "A01_R", "A02_R",  "B01_R", "B02_R",
            "C01_R", "C02_R", "D01_R", "D02_R"]
 
       collision_sphere_radii: [0.2,
                                0.1,
                                0.1,
                                
-                               0.075,
+                               0.05, 0.075,
                                0.02, 0.02, 0.02, 0.02,
                                0.02, 0.02, 0.02, 0.02]
 
