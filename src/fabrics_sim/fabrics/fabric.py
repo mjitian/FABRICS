@@ -305,8 +305,8 @@ class BaseFabric(torch.nn.Module):
             xd = torch.bmm(jac, qd.unsqueeze(2)).squeeze(2)
         
         # TODO: not sure if we still need these.
-        q.grad = None
-        qd.grad = None
+        # q.grad = None
+        # qd.grad = None
 
         # Calculate leaf metrics and accelerations.
         M_leaf, potential_force, geometric_force = \

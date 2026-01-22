@@ -37,7 +37,9 @@ class DisplacementIntegrator():
         @return joint_velocity: batched new velocity, bxn
         @return joint_accel: batched new acceleration, bxn
         """
-        
+        # print(f"joint_position before step: {joint_position}")
+        # print(f"joint_velocity before step: {joint_velocity}")
+        # print(f"joint_accel before step: {joint_accel}")
         self._masses, self._forces, self._masses_inv = self._fabric(joint_position, joint_velocity, timestep)
         joint_accel = -torch.bmm(self._masses_inv, self._forces.unsqueeze(2)).squeeze(2)
         joint_position = joint_position + timestep * joint_velocity + .5 * timestep ** 2 * joint_accel

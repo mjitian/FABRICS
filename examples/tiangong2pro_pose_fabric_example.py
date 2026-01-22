@@ -55,11 +55,11 @@ batch_size = args.batch_size
 
 # Declare device for fabric
 device_int = 0
-device = 'cuda:' + str(device_int)
+device = 'cpu'
 
 # Set the warp cache directory based on device int
 warp_cache_dir = ""
-initialize_warp(str(device_int))
+# initialize_warp(str(device_int))
 
 # This creates a world model that book keeps all the meshes
 # in the world, their pose, name, etc.
