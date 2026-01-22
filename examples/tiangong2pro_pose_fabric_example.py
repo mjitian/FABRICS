@@ -178,6 +178,9 @@ for i in range(int(control_rate * total_time)):
         
         # Integrate fabrics one step producing new position and velocity.
         q, qd, qdd = tiangong2pro_integrator.step(q.detach(), qd.detach(), qdd.detach(), timestep)
+        print(f"q: {q}")
+        print(f"qd: {qd}")
+        print(f"qdd: {qdd}")
     
     # Render, albeit at a lower framerate
     if use_viz and (i % 4 == 0):
