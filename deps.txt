@@ -3,3 +3,5 @@ warp-lang>=1.5.0,<1.8.2
 pyyaml
 urdfpy
 numpy>=1.23.5,<2.0.0
+rl-games
+torchvision
